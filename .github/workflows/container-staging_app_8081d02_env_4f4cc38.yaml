@@ -26,7 +26,7 @@ jobs:
     permissions: write-all
     runs-on: ubuntu-latest
     steps:
-      - name: 'Run :: Decoding Secrets 6877e4'
+      - name: 'Run :: Decoding Secrets 44ee45'
         run: |2-
 
                   if [ ! -x "$(command -v jq)" ]; then
@@ -38,13 +38,6 @@ jobs:
                 
       - name: 'Run :: Checkout repository for Code Scan'
         uses: actions/checkout@v4
-        metaData:
-          envVars:
-            tags: []
-            isEditable: true
-          usePrevDockerBuild:
-            tags: []
-            isEditable: true
       - run: |2-
 
                   if [ ! -x "$(command -v jq)" ]; then
@@ -55,24 +48,10 @@ jobs:
                   echo "${{ env.ENCODED_PIPELINE_SECRET }}" | base64 --decode | jq -r 'to_entries[] | "\(.key)=\(.value)"' | while read line; do echo "$line" >> $GITHUB_ENV; echo "::add-mask::${line#*=}"; done
                 
         name: 'Run :: Decoding Secrets e39226'
-        metaData:
-          envVars:
-            tags: []
-            isEditable: true
-          usePrevDockerBuild:
-            tags: []
-            isEditable: true
       - run: >-
           docker run -i -v "${PWD}:/src" semgrep/semgrep semgrep /src --json
           --quiet > semgrep_results.json
         name: 'Run :: Install Semgrep, Scan and Print'
-        metaData:
-          envVars:
-            tags: []
-            isEditable: true
-          usePrevDockerBuild:
-            tags: []
-            isEditable: true
       - run: |2-
 
                   SARIF_FILE="semgrep_results.json"
@@ -92,19 +71,12 @@ jobs:
                       echo "SARIF file not found."
                   fi
         name: 'Run :: Upload Code Scan Report'
-        metaData:
-          envVars:
-            tags: []
-            isEditable: true
-          usePrevDockerBuild:
-            tags: []
-            isEditable: true
   _status-pending:
     name: _status Pending
     permissions: write-all
     runs-on: ubuntu-latest
     steps:
-      - name: 'Run :: Decoding Secrets 7bcc4e'
+      - name: 'Run :: Decoding Secrets 668eb1'
         run: |2-
 
                   if [ ! -x "$(command -v jq)" ]; then
@@ -131,7 +103,7 @@ jobs:
     runs-on: ubuntu-latest
     if: ${{ github.event.client_payload.releaseData }}
     steps:
-      - name: 'Run :: Decoding Secrets 815f90'
+      - name: 'Run :: Decoding Secrets c34b6e'
         run: |2-
 
                   if [ ! -x "$(command -v jq)" ]; then
@@ -197,7 +169,7 @@ jobs:
 
               git fetch --all
               git checkout ${{ github.event.client_payload.commitId }}
-      - name: 'Run :: Decoding Secrets 4d8e3b'
+      - name: 'Run :: Decoding Secrets 0ace96'
         run: |2-
 
                   if [ ! -x "$(command -v jq)" ]; then
@@ -207,7 +179,7 @@ jobs:
                   fi
                   echo "${{ env.ENCODED_PIPELINE_SECRET }}" | base64 --decode | jq -r 'to_entries[] | "\(.key)=\(.value)"' | while read line; do echo "$line" >> $GITHUB_ENV; echo "::add-mask::${line#*=}"; done
                 
-      - name: 'Run :: Configure AWS credentials 1ee90c38-9eb4-4dea-a080-7385b47de3ae'
+      - name: 'Run :: Configure AWS credentials a33fbcdf-d241-4c08-a762-98f097e759ac'
         uses: aws-actions/configure-aws-credentials@v4
         with:
           role-to-assume: ${{ env.roleARN }}
@@ -320,7 +292,7 @@ jobs:
       - build-and-push
     if: ${{ !(failure() || cancelled()) }}
     steps:
-      - name: 'Run :: Decoding Secrets c2128d'
+      - name: 'Run :: Decoding Secrets ebf7b2'
         run: |2-
 
                   if [ ! -x "$(command -v jq)" ]; then
@@ -343,7 +315,7 @@ jobs:
       - build-and-push
     if: ${{ failure() || cancelled() }}
     steps:
-      - name: 'Run :: Decoding Secrets 2ade2f'
+      - name: 'Run :: Decoding Secrets 4ce202'
         run: |2-
 
                   if [ ! -x "$(command -v jq)" ]; then
@@ -368,7 +340,7 @@ jobs:
       needs.build-and-push.outputs.stepsCanProceed == 'true' &&
       github.event.client_payload.releaseData == null
     steps:
-      - name: 'Run :: Decoding Secrets 0643c4'
+      - name: 'Run :: Decoding Secrets 90d981'
         run: |2-
 
                   if [ ! -x "$(command -v jq)" ]; then
