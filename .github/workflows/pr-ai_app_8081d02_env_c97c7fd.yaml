@@ -6,6 +6,7 @@ name: pr-ai_app_8081d02_env_c97c7fd Pipeline (Skyu Generated)
 env:
   ENCODED_PIPELINE_SECRET: ${{secrets.COFFEECATALOGUESVC_PRAI_APP_8081D02_ENV_C97C7FD}}
   COMMIT_ID: ${{github.event.client_payload.commitId || github.sha}}
+  LOGS: ${{ github.event.client_payload.logs }}
 jobs:
   _status-pending:
     name: _status Pending
