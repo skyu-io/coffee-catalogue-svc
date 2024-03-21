@@ -8,7 +8,7 @@ name: container-prod_app_8081d02_env_c4b01b5 Pipeline (Skyu Generated)
   repository_dispatch:
     types: pipeline_9dc0d2bc-8132-49f7-9850-e47c006e0d1c
 env:
-  ENCODED_PIPELINE_SECRET: ${{secrets.COFFEECATALOGUESVC_CONTAINERPROD_APP_8081D02_ENV_C4B01B5}}
+  ENCODED_PIPELINE_SECRET: ${{secrets.COFFEECATALOGUESVC_CONTAINERPROD_APP_8081D02_ENV_C4B01B5_YAML}}
   COMMIT_ID: ${{github.event.client_payload.commitId || github.sha}}
   IMAGE_NAME: 992382541807.dkr.ecr.us-east-1.amazonaws.com/coffee-catalogue-api-service
   DOCKER_FILE_PATH: Dockerfile
@@ -24,7 +24,7 @@ jobs:
     permissions: write-all
     runs-on: ubuntu-latest
     steps:
-      - name: 'Run :: Decoding Secrets 428ac1'
+      - name: 'Run :: Decoding Secrets 016c79'
         run: |2-
 
                   if [ ! -x "$(command -v jq)" ]; then
@@ -36,8 +36,7 @@ jobs:
                 
       - name: 'Run :: Checkout repository for Code Scan'
         uses: actions/checkout@v4
-      - name: 'Run :: Decoding Secrets e39226'
-        run: |2-
+      - run: |2-
 
                   if [ ! -x "$(command -v jq)" ]; then
                     echo "jq not found, installing..."
@@ -46,12 +45,12 @@ jobs:
                   fi
                   echo "${{ env.ENCODED_PIPELINE_SECRET }}" | base64 --decode | jq -r 'to_entries[] | "\(.key)=\(.value)"' | while read line; do echo "$line" >> $GITHUB_ENV; echo "::add-mask::${line#*=}"; done
                 
-      - name: 'Run :: Install Semgrep, Scan and Print'
-        run: >-
+        name: 'Run :: Decoding Secrets e39226'
+      - run: >-
           docker run -i -v "${PWD}:/src" semgrep/semgrep semgrep /src --json
           --quiet > semgrep_results.json
-      - name: 'Run :: Upload Code Scan Report'
-        run: |2-
+        name: 'Run :: Install Semgrep, Scan and Print'
+      - run: |2-
 
                   SARIF_FILE="semgrep_results.json"
                   if [ -n "$SARIF_FILE" ]; then
@@ -69,12 +68,13 @@ jobs:
                   else
                       echo "SARIF file not found."
                   fi
+        name: 'Run :: Upload Code Scan Report'
   _status-pending:
     name: _status Pending
     permissions: write-all
     runs-on: ubuntu-latest
     steps:
-      - name: 'Run :: Decoding Secrets 7b9ca8'
+      - name: 'Run :: Decoding Secrets 176fe7'
         run: |2-
 
                   if [ ! -x "$(command -v jq)" ]; then
@@ -101,7 +101,7 @@ jobs:
     runs-on: ubuntu-latest
     if: ${{ github.event.client_payload.releaseData }}
     steps:
-      - name: 'Run :: Decoding Secrets 325f40'
+      - name: 'Run :: Decoding Secrets ef5f9e'
         run: |2-
 
                   if [ ! -x "$(command -v jq)" ]; then
@@ -166,8 +166,9 @@ jobs:
         run: |2-
 
               git fetch --all
-              git checkout ${{ github.event.client_payload.commitId }}
-      - name: 'Run :: Decoding Secrets 21ef3e'
+              git checkout ${{ github.event.client_payload.commitId }} || true
+              
+      - name: 'Run :: Decoding Secrets 24719c'
         run: |2-
 
                   if [ ! -x "$(command -v jq)" ]; then
@@ -177,7 +178,7 @@ jobs:
                   fi
                   echo "${{ env.ENCODED_PIPELINE_SECRET }}" | base64 --decode | jq -r 'to_entries[] | "\(.key)=\(.value)"' | while read line; do echo "$line" >> $GITHUB_ENV; echo "::add-mask::${line#*=}"; done
                 
-      - name: 'Run :: Configure AWS credentials 2a53bf56-874d-4138-8a06-ea44e9986a28'
+      - name: 'Run :: Configure AWS credentials 55f6c2e1-d7f4-45d5-ae77-19577ba679b7'
         uses: aws-actions/configure-aws-credentials@v4
         with:
           role-to-assume: ${{ env.roleARN }}
@@ -290,7 +291,7 @@ jobs:
       - build-and-push
     if: ${{ !(failure() || cancelled()) }}
     steps:
-      - name: 'Run :: Decoding Secrets 897910'
+      - name: 'Run :: Decoding Secrets 9fb21c'
         run: |2-
 
                   if [ ! -x "$(command -v jq)" ]; then
@@ -313,7 +314,7 @@ jobs:
       - build-and-push
     if: ${{ failure() || cancelled() }}
     steps:
-      - name: 'Run :: Decoding Secrets c5af1e'
+      - name: 'Run :: Decoding Secrets 0dd2b3'
         run: |2-
 
                   if [ ! -x "$(command -v jq)" ]; then
@@ -338,7 +339,7 @@ jobs:
       needs.build-and-push.outputs.stepsCanProceed == 'true' &&
       github.event.client_payload.releaseData == null
     steps:
-      - name: 'Run :: Decoding Secrets bf4b6a'
+      - name: 'Run :: Decoding Secrets 9e96c5'
         run: |2-
 
                   if [ ! -x "$(command -v jq)" ]; then
