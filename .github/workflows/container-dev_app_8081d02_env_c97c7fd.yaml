@@ -3,7 +3,8 @@ name: container-dev_app_8081d02_env_c97c7fd Pipeline (Skyu Generated)
   push:
     branches:
       - main
-    paths: []
+    paths-ignore:
+      - .github/workflows/**
   workflow_dispatch: {}
   repository_dispatch:
     types: pipeline_61baa387-aab1-4c7a-a2a2-6a01e38b7c40
