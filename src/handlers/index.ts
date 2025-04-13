@@ -54,7 +54,7 @@ export const addCoffeeHandler = async (req: Request, res: Response) => {
 
   if (!newCoffee.name) {
     console.log(
-      `Missing Name in Coffee :: ${{ ...newCoffee }.namee.toLowerCase()}`
+      `Missing Name in Coffee :: ${newCoffee.name.toLowerCase()}`
     );
   }
 
