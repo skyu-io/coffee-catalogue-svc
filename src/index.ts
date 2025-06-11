@@ -5,11 +5,12 @@ import cors from "cors";
 import router from "./routes";
 import { dataSource } from "./configs/db";
 
+const app = express();
+
 dataSource
   .initialize()
   .then(() => {
-    console.log("DB Connected and Initiallized");
-    const app = express();
+    console.log("DB Connected and Initialized");
     app.use(express.json());
     app.use(
       bodyParser.urlencoded({
@@ -26,4 +27,5 @@ dataSource
   })
   .catch((err) => {
     console.error("Error Initializing DB", err);
+    process.exit(1); // Ensure the process exits on DB connection error
   });
